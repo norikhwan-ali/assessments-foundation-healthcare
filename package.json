@@ -1,0 +1,25 @@
+{
+  "name": "assessments-foundation-healthcare",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/norikhwan-ali/assessments-foundation-healthcare.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/norikhwan-ali/assessments-foundation-healthcare/issues"
+  },
+  "homepage": "https://github.com/norikhwan-ali/assessments-foundation-healthcare#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.0",
+    "dotenv": "^17.4.2",
+    "typescript": "^6.0.3"
+  }
+}
