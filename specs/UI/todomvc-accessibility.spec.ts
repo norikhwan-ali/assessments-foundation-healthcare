@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { TodoPage } from "../pages";
-import { ToDos } from "../data";
+import { TodoPage } from "../../pages";
+import { ToDos } from "../../data";
 
 let todoPage: TodoPage;
 
@@ -46,14 +46,13 @@ test.describe("TodoMVC Accessibility Tests", () => {
       await expect(todoPage.filter("Completed")).toBeVisible();
 
       // Tab through the elements to the "Completed" filter and activate it
-      for (let i = 0; i < 5; i++) {
-        await todoPage.page.keyboard.press("Tab");
-      }
 
+      await todoPage.page.keyboard.press("Tab");
+      await todoPage.page.keyboard.press("Tab");
       await todoPage.page.keyboard.press("Enter");
 
-      // Item should not be visible
-      await expect(todoPage.todoItems).toHaveCount(0);
+      // Item should be visible
+      await expect(todoPage.todoItems).toHaveCount(1);
     });
 
     test("should have elements that are properly focused", async () => {

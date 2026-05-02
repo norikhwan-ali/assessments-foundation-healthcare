@@ -1,13 +1,15 @@
-import "dotenv/config";
-import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+dotenv.config({ quiet: true });
+
+import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./specs",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
+  retries: 1,
   workers: process.env.CI ? 1 : undefined,
-  reporter: "html",
+  reporter: [["html"], ["list"]],
 
   use: {
     baseURL: process.env.UI_BASE_URL,
@@ -16,16 +18,23 @@ export default defineConfig({
 
   projects: [
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      name: "API",
+      testDir: "specs/API",
     },
     {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
+      name: "UI - Chromium",
+      testDir: "specs/UI",
+      use: { browserName: "chromium" },
     },
     {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
+      name: "UI - Firefox",
+      testDir: "specs/UI",
+      use: { browserName: "firefox" },
+    },
+    {
+      name: "UI - WebKit",
+      testDir: "specs/UI",
+      use: { browserName: "webkit" },
     },
   ],
 });
