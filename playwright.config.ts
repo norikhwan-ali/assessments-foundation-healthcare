@@ -14,6 +14,9 @@ export default defineConfig({
   use: {
     baseURL: process.env.UI_BASE_URL,
     trace: "on-first-retry",
+    viewport: { width: 1280, height: 720 },
+    deviceScaleFactor: 1,
+    headless: true,
   },
 
   projects: [
