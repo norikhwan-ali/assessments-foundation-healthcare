@@ -45,13 +45,15 @@ test.describe("TodoMVC Accessibility Tests", () => {
       await expect(todoPage.filter("Active")).toBeVisible();
       await expect(todoPage.filter("Completed")).toBeVisible();
 
-      // Verify filters work with keyboard
-      await todoPage.page.keyboard.press("Tab"); // Focus on input
-      await todoPage.page.keyboard.press("Tab"); // Focus on first filter
-      await todoPage.page.keyboard.press("Enter"); // Click filter
+      // Tab through the elements to the "Completed" filter and activate it
+      for (let i = 0; i < 5; i++) {
+        await todoPage.page.keyboard.press("Tab");
+      }
 
-      // Should still show the item
-      await expect(todoPage.todoItems).toHaveCount(1);
+      await todoPage.page.keyboard.press("Enter");
+
+      // Item should not be visible
+      await expect(todoPage.todoItems).toHaveCount(0);
     });
 
     test("should have elements that are properly focused", async () => {
