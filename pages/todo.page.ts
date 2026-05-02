@@ -59,7 +59,9 @@ export class TodoPage {
   // Getters
 
   async expectPageScreenshot(name: string) {
-    await expect(this.page.locator("body")).toHaveScreenshot(name);
+    const app = this.page.locator(".todoapp");
+    await this.page.waitForLoadState("networkidle");
+    await expect(app).toHaveScreenshot(name);
   }
 
   async getActiveTodosCount(): Promise<number> {
