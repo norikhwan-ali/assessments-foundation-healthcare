@@ -10,6 +10,8 @@ export default defineConfig({
   retries: 1,
   workers: process.env.CI ? 1 : undefined,
   reporter: [["html"], ["list"]],
+  snapshotPathTemplate:
+    "{testDir}/snapshots/{testFileName}/{projectName}/{arg}{ext}",
 
   use: {
     baseURL: process.env.UI_BASE_URL,
