@@ -1,5 +1,3 @@
-console.log("Loaded Playwright config");
-
 import dotenv from "dotenv";
 dotenv.config({ quiet: true });
 
@@ -13,7 +11,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [["html"], ["list"]],
   snapshotPathTemplate:
-    "{testDir}/UI/snapshots/{testFileName}/{projectName}/{arg}{ext}",
+    "{testDir}/{testFileName}-snapshots/{projectName}/{arg}{ext}",
 
   use: {
     baseURL: process.env.UI_BASE_URL,
