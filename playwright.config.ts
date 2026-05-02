@@ -13,7 +13,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [["html"], ["list"]],
   snapshotPathTemplate:
-    "{testDir}/snapshots/{testFileName}/{projectName}/{arg}{ext}",
+    "{testDir}/UI/snapshots/{testFileName}/{projectName}/{arg}{ext}",
 
   use: {
     baseURL: process.env.UI_BASE_URL,
