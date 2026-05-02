@@ -40,13 +40,13 @@ git clone https://github.com/norikhwan-ali/assessments-foundation-healthcare.git
 cd assessments-foundation-healthcare
 ```
 
-1. Install dependencies:
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-1. Install Playwright browsers:
+3. Install Playwright browsers:
 
 ```bash
 npx playwright install
