@@ -1,6 +1,6 @@
 # Assessments: Foundation Healthcare
 
-A comprehensive test automation suite for healthcare applications using Playwright. This project includes both API and UI testing capabilities, focusing on FHIR R4 standards and modern web applications.
+An assessment for Foundation Healthcare using Playwright. This project includes both API and UI testing capabilities, focusing on FHIR R4 standards and modern web applications.
 
 ## Features
 
