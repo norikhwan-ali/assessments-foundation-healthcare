@@ -57,11 +57,34 @@ npx playwright install
 Create a `.env` file in the root directory with the following environment variables:
 
 ```env
-API_BASE_URL=https://your-fhir-server.com/fhir
-UI_BASE_URL=https://your-todomvc-app.com
+API_BASE_URL=https://hapi.fhir.org/baseR4
+UI_BASE_URL=https://demo.playwright.dev/todomvc
 ```
 
 ## Running Tests
+
+### ⚠️ Visual Snapshot Tests ⚠️
+
+Visual snapshots are generated in **CI**, not on local machines.  
+This ensures consistent rendering across browsers, fonts, and operating systems.
+
+Because local environments may render UI differently, visual tests may fail when run locally.  
+This is expected.
+
+If you intentionally want to update the visual baselines, run:
+
+```bash
+npx playwright test --update-snapshots
+```
+
+Only run this when you intend to update the snapshots.  
+After updating, commit the new `*-snapshots` folders so CI can use them as the new baseline.
+
+If you only want to run functional tests locally. use:
+
+```bash
+npx playwright test --grep-invert "Visual Regression Tests"
+```
 
 ### Run All Tests
 

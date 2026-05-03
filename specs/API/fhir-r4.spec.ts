@@ -25,10 +25,16 @@ test.describe("FHIR R4 API Tests", () => {
   }) => {
     const api = await createApiClient(request);
     const newPatient = await createPatient(api);
-    const response = await api.get(`${apiBase}/Patient/${newPatient.body.id}`);
-    const body = await response.json();
+    const { json: retrievedPatient, response } = await getWithRetry(
+      api,
+      `${apiBase}/Patient/${newPatient.body.id}`,
+    );
 
-    assertions.expectPatientsRetrieved(response, body, newPatient.body);
+    assertions.expectPatientsRetrieved(
+      response,
+      retrievedPatient,
+      newPatient.body,
+    );
   });
 
   test("should update the patient resource and verify the update", async ({
@@ -36,11 +42,10 @@ test.describe("FHIR R4 API Tests", () => {
   }) => {
     const api = await createApiClient(request);
     const newPatient = await createPatient(api);
-    const existingPatient = await getWithRetry(
+    const { json: existingPatient } = await getWithRetry(
       api,
       `${apiBase}/Patient/${newPatient.body.id}`,
     );
-    // const existingPatientData = await existingPatient.json();
 
     const updatedPatient = PatientBuilder.fromExisting(existingPatient)
       .withName(updatedPatientData.familyName, updatedPatientData.givenName)
@@ -49,31 +54,38 @@ test.describe("FHIR R4 API Tests", () => {
     const response = await api.put(`${apiBase}/Patient/${newPatient.body.id}`, {
       data: updatedPatient,
     });
-    const body = await response.json();
 
-    assertions.expectPatientsUpdated(response, body, newPatient.body.id);
+    const updatedExisting = await response.json();
+
+    assertions.expectPatientsUpdated(
+      response,
+      updatedExisting,
+      newPatient.body.id,
+    );
   });
 
   test("should search the patient resource by name and verify the response structure", async ({
     request,
   }) => {
     const api = await createApiClient(request);
-    const response = await api.get(
+    const { json: existingPatient, response } = await getWithRetry(
+      api,
       `${apiBase}/Patient?name=${updatedPatientData.familyName}`,
     );
-    const body = await response.json();
 
-    assertions.expectPatientsSearched(response, body);
+    assertions.expectPatientsSearched(response, existingPatient);
   });
 
   test("should return an error when searching for a nonexistent ID", async ({
     request,
   }) => {
     const api = await createApiClient(request);
-    const response = await api.get(`${apiBase}/Patient/${invalidPatientId}`);
-    const body = await response.json();
+    const { json: nonexistentPatient, response } = await getWithRetry(
+      api,
+      `${apiBase}/Patient/${invalidPatientId}`,
+    );
 
-    assertions.expectPatientNotFound(response, body);
+    assertions.expectPatientNotFound(response, nonexistentPatient);
   });
 
   test("should return an error when creating a patient with malformed data", async ({

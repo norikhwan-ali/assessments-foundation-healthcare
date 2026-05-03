@@ -14,7 +14,6 @@ test.describe("TodoMVC Test Application", () => {
     test("should display the correct initial state of the application", async () => {
       await expect(todoPage.input).toBeVisible();
       await expect(todoPage.input).toBeEmpty();
-      await todoPage.expectPageScreenshot("initial-state.png");
     });
   });
 
@@ -23,7 +22,6 @@ test.describe("TodoMVC Test Application", () => {
       await todoPage.addTodo(ToDos[0]);
       await expect(todoPage.todoItems).toHaveCount(1);
       await expect(todoPage.label(0)).toHaveText(ToDos[0]);
-      await todoPage.expectPageScreenshot("single-todo-item.png");
     });
   });
 
@@ -36,7 +34,6 @@ test.describe("TodoMVC Test Application", () => {
       await expect(todoPage.todoItems).toHaveCount(3);
       const activeCount = await todoPage.getActiveTodosCount();
       expect(activeCount).toBe(3);
-      await todoPage.expectPageScreenshot("multiple-todo-items.png");
     });
   });
 
@@ -53,7 +50,6 @@ test.describe("TodoMVC Test Application", () => {
       await expect(todoLabel).toHaveCSS("text-decoration-line", "line-through");
       const activeCount = await todoPage.getActiveTodosCount();
       expect(activeCount).toBe(0);
-      await todoPage.expectPageScreenshot("completed-todo-item.png");
     });
   });
 
@@ -71,7 +67,6 @@ test.describe("TodoMVC Test Application", () => {
       await expect(todoPage.todoItems).toHaveCount(2);
       await expect(todoPage.label(0)).toHaveText("Clean the house");
       await expect(todoPage.label(1)).toHaveText("Finish assignment");
-      await todoPage.expectPageScreenshot("deleted-todo-item.png");
     });
   });
 
@@ -87,18 +82,15 @@ test.describe("TodoMVC Test Application", () => {
       // Filter by All
       await todoPage.filterBy("All");
       await expect(todoPage.todoItems).toHaveCount(3);
-      await todoPage.expectPageScreenshot("filtered-all-todos.png");
 
       // Filter by Active
       await todoPage.filterBy("Active");
       await expect(todoPage.todoItems).toHaveCount(2);
-      await todoPage.expectPageScreenshot("filtered-active-todos.png");
 
       // Filter by Completed
       await todoPage.filterBy("Completed");
       await expect(todoPage.todoItems).toHaveCount(1);
       await expect(todoPage.label(0)).toHaveText("Finish assignment");
-      await todoPage.expectPageScreenshot("filtered-completed-todos.png");
 
       // Go back to All
       await todoPage.filterBy("All");
